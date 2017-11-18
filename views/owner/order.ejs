@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Data Table -->    
+    <link rel="stylesheet" href="../dataTables/css/dataTables.bootstrap4.min.css">    
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/custom.css">
+
+</head>
+<body>
+    <% include partials/header.ejs%>
+    <div id="wrapper" class="toggled">
+        <% include partials/sidebar.ejs%>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">            
+            <div class="container-fluid">
+                <div>
+                    <a href="" id="menu-toggle">
+                        <span class="glyphicon glyphicon-menu-hamburger d-sidebar-toggler"></span>
+                    </a>
+                </div>
+
+                <div class="d-page-content">
+                    <div class="text-center" style="margin-top:20px; margin-bottom:20px;">
+                        <h2>Order Management</h2>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table id="orderTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Place Name</th>
+                                    <th class="text-center">User Email</th>
+                                    <th class="text-center">Gender</th>
+                                    <th class="text-center">Dress</th>
+                                    <th class="text-center">Color</th>
+                                    <th class="text-center">Number</th>
+                                    <th class="text-center">Order Time</th>
+                                    <th class="text-center">Close Time</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <% for(var i = 0; i < orders.length; i++){ %>
+                                    <tr>
+                                        <td><%= orders[i].placeName %></td>
+                                        <td><%= orders[i].userEmail %></td>
+                                        <td><%= orders[i].gender %></td>
+                                        <td><%= orders[i].dress %></td>
+                                        <td><%= orders[i].color %></td>
+                                        <td><%= orders[i].number %></td>                                        
+                                        <td><%= orders[i].orderTime %></td>
+                                        <td><%= orders[i].outTime %></td>
+                                        <td>
+                                            <select data-email="<%= orders[i].userEmail %>" data-placename="<%= orders[i].placeName %>" class="d-order-status">
+                                                <% if(orders[i].status == 'True') { %>
+                                                    <option value = "True" selected>True</option>
+                                                    <option value = "False">False</option>
+                                                <% } %>
+                                                <% if(orders[i].status == 'False') { %>
+                                                    <option value = "True">True</option>
+                                                    <option value = "False" selected>False</option>
+                                                <% } %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info btn-lg d-settingModalTrigger" data-toggle="modal" data-target="#mySettingModal" style="display:none;">Open Modal</button>
+                <div id="mySettingModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title text-center">Setting</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div>                                    
+                                    <div class="form-group">
+                                        <label> Old Password</label>
+                                        <input type="password" class="form-control d-oldPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label> New Password</label>
+                                        <input type="password" class="form-control d-newPassword">
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <button type="submit" class="btn btn-warning btn-md btn-Change">Change</button>
+                                    </div>                            
+                                </div>
+                            </div>                    
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        <% include partials/footer.ejs%>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Data Table -->
+    <script src="../dataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../dataTables/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $(document).ready(function(){
+            $('#orderTable').dataTable();
+        })
+    </script>
+
+    <script>        
+        $('.d-order-delete').on('click', function(){
+            var placeName = $(this).data('name');
+            var userEmail = $(this).data('email');
+            var row = $("#orderTable").DataTable().row($(this).parents('tr'));
+            $.ajax({
+                url:'/owner/deleteOrder',
+                data:{placeName:placeName, userEmail:userEmail},
+                type:'POST',
+                success: function(data){
+                    if(data.ret == true)
+                        row.remove().draw();
+                }
+            })
+        });
+
+    </script>
+    <script>
+        $('.d-settings').on('click', function(){
+            $('.d-settingModalTrigger').trigger('click');
+        })
+        $('.btn-Change').on('click', function(){
+            var oldPassword = $('.d-oldPassword').val();
+            var newPassword = $('.d-newPassword').val();
+            $.ajax({
+                url:"/owner/changePassword",
+                data:{oldPassword:oldPassword, newPassword:newPassword},
+                type:'POST',
+                success:function(data){
+                    if(data.ret == true){
+                        alert("Successfully changed");
+                        $('.close').trigger('click');
+                    }
+                    else{
+                        alert("Information incorrect");
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+    //When owner change the status of order
+    function refreshOrderStatusChangeEvent(){
+        $('.d-order-status').on('change', function(){
+            var email = $(this).data('email');
+            var placeName = $(this).data('placename');
+            var status = $(this).val();
+            var row = $("#orderTable").DataTable().row($(this).parents('tr'));
+            $.ajax({
+                url:'/owner/orderStatus',
+                data:{email:email, placeName:placeName, status:status},
+                type:'POST',
+                success:function(data){
+                    if(data.ret == false)
+                        alert("Error while changing status");
+                    else{   
+                        var outTime = data.outTime;
+                        var oldRowData = row.data();
+                        var selectHTML = '<select data-email="'+oldRowData[1]+'" data-placename="'+oldRowData[0]+'" class="d-order-status">';
+                        if(status == "True"){
+                            selectHTML += '<option value = "True" selected>True</option>'+
+                                          '<option value = "False">False</option>';
+                        }
+                        else{
+                            selectHTML += '<option value = "True">True</option>'+
+                                          '<option value = "False" selected>False</option>';
+                        }
+                        selectHTML +='</select>';
+                        var rowData = [oldRowData[0], oldRowData[1], oldRowData[2], oldRowData[3], oldRowData[4], oldRowData[5], oldRowData[6], outTime, selectHTML];
+                        row.data(rowData).draw();
+                        refreshOrderStatusChangeEvent();
+                    }
+                }
+            })
+        })    
+    }
+    refreshOrderStatusChangeEvent();    
+    </script>
+</body>
+
+</html>

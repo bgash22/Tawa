@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Data Table -->    
+    <link rel="stylesheet" href="../dataTables/css/dataTables.bootstrap4.min.css">    
+
+    <link rel="stylesheet" href="/stylesheets/custom.css">
+
+</head>
+<body>    
+    <nav class="navbar navbar-inverse" style="height:100px;">
+        <div class="container-fluid" style="position:absolute; right:0px; bottom:0px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                
+            </div>
+              
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0);" class="d-settings">Settings</a></li>
+                            <li class="d-LogInAndOut"><a href="javascript:void(0);">Log In</a></li>                        
+                        </ul>
+                    </li>
+                </ul>            
+            </div>
+        </div><!-- /.container-fluid -->
+        <div style="color:#cccccc; padding-top:10px;" class="text-center">
+            <h2>EASY BOOK</h2>
+        </div>
+    </nav>
+
+    <div class="d-mainContent">
+        <div id="map" style='width:100%;height:100%;'>            
+        </div>
+
+        <!-- Modal Log In -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg d-modalTrigger" data-toggle="modal" data-target="#myModal" style="display:none;">Open Modal</button>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">        
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Log In</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control d-email" onkeypress="showPassword(event)">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control d-password" onkeypress="showLogin(event)">
+                            </div>
+                            <div style="text-align:right" class="d-LoginWrapper">
+                                <button type="submit" class="btn btn-warning btn-md btn-login">Login</button>
+                            </div>
+                            <p>Need an account? <a href="javascript:void(0);" class="d-signUp">Signup</a></p>
+                        </div>
+                    </div>                    
+                </div>        
+            </div>
+        </div>
+
+
+        <!-- Modal Sign Up -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg d-signUpModalTrigger" data-toggle="modal" data-target="#mySignUpModal" style="display:none;">Open Modal</button>
+        <div id="mySignUpModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Sign Up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control d-signUpEmail" >
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control d-signUpPassword">
+                            </div>
+                            <div style="text-align:right;">
+                                <button type="submit" class="btn btn-warning btn-md btn-signUp">Create</button>
+                            </div>                            
+                        </div>
+                    </div>                    
+                </div>     
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg d-settingModalTrigger" data-toggle="modal" data-target="#mySettingModal" style="display:none;">Open Modal</button>
+        <div id="mySettingModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Setting</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>                                    
+                            <div class="form-group">
+                                <label> Old Password</label>
+                                <input type="password" class="form-control d-oldPassword">
+                            </div>
+                            <div class="form-group">
+                                <label> New Password</label>
+                                <input type="password" class="form-control d-newPassword">
+                            </div>
+                            <div style="text-align:right;">
+                                <button type="submit" class="btn btn-warning btn-md btn-Change">Change</button>
+                            </div>                            
+                        </div>
+                    </div>                    
+                </div>        
+            </div>
+        </div>
+
+        <!-- Book Result Modal -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg d-bookResultModalTrigger" data-toggle="modal" data-target="#myBookResultModal" style="display:none;">Open Modal</button>
+        <div id="myBookResultModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Result</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-book-result-body"></div>
+                    </div>                    
+                </div>        
+            </div>
+        </div>
+
+        <!-- Modal Select Chain -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg d-chainModalTrigger" data-toggle="modal" data-target="#myChainModal" style="display:none;">Open Modal</button>
+        <div id="myChainModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">        
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Questions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="form-group d-questionWrapper">
+                                <label>Gender :</label>
+                                <select class="q-gender" onchange = "showDressWrapper()">
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group d-questionWrapper d-dressWrapper">
+                                <label>Dress :</label>
+                                <select class="q-dress" onchange = "showColorWrapper()">
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value="Jacket">Jacket</option>
+                                    <option value="Coat">Coat</option>
+                                </select>
+                            </div>
+                            <div class="form-group d-questionWrapper d-colorWrapper">
+                                <label>Color :</label>
+                                <select class="q-color" onchange = "showAnswerWrapper()">
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value="Red">Red</option>
+                                    <option value="Blue">Blue</option>
+                                </select>
+                            </div>
+                            <div style="text-align:right;" class="d-AnswerWrapper">
+                                <button type="" class="btn btn-warning btn-md btn-answer">Answer</button>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>        
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h4>All rights reserved. 2017</h4>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    
+    <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+
+    <!-- Google map -->
+    <script src='https://maps.googleapis.com/maps/api/js?key=<%= mapkey %>&callback=initMap', async='', defer=''></script>
+    <script>
+        // Get Data from
+        String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+
+        var placeData = '<%= placeData %>';
+        placeData = placeData.replaceAll('&#34;', '"');
+        placeData = placeData.replaceAll('&#39;', "'");
+        
+        var places = JSON.parse(placeData);
+
+
+        //My Position
+        var myLatLng;
+
+        //Draw Map
+        $(window).on('resize', function(){
+            initMap();
+        })
+
+        function initMap() {
+            document.getElementById('map').style.height = $(window).height() - 150 + 'px';
+            navigator.geolocation.getCurrentPosition(function(position) {
+                //do_something(position.coords.latitude, position.coords.longitude);
+                lati = position.coords.latitude;
+                logi = position.coords.longitude;
+                myLatLng = {lat: lati, lng: logi};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: myLatLng
+                });
+
+                var myMarker = new google.maps.Marker({
+                    position: myLatLng,
+                    icon: 'https://maps.google.com/mapfiles/kml/shapes/library_maps.png',
+                    title: "My Position!"
+                });
+
+                // To add the marker to the map, call setMap();
+                myMarker.setMap(map);
+
+                var infowindow = new google.maps.InfoWindow();
+
+                for(var i = 0; i < places.length; i++){
+                    var contentString = 
+                        '<div id="d-infoWindow" class="row" style="width:650px; height: 400px;">'+
+                            '<div class="col-sm-6">'+
+                                '<div id="my-chart" style="width: 100%; height: 400px; float: left"></div>'+
+                            '</div>'+
+                            '<div class="col-sm-6" style="padding-left:10%;">'+
+                                '<div class="d-placeName" style="margin-top:50px; margin-bottom:10px; font-size:30px;">'+places[i].name+'</div>'+
+                                '<div><p> Persons in queue = <div class="d-queue">'+places[i].queue+'</div></p></div>'+
+                                '<div><p> Capacity = <div class="d-capacity">'+places[i].capacity+'</div></p></div>'+
+                                '<div><p> expected arrival time : <div class="d-arrivalTime"></div></p></div>'+
+                                '<div><p>price = <div class="d-price">' + places[i].price + ' </div></p></div>'+
+                                '<div class="d-latitude" style="display:none;">'+places[i].latitude+'</div>'+
+                                '<div class="d-longitude" style="display:none;">'+places[i].longitude+'</div>'+
+                                '<button class="btn-success" style="">BOOK</button>'+
+                            '</div>'+
+                        '</div>';
+
+                    
+                    var markerPos = {lat:Number(places[i].latitude), lng:Number(places[i].longitude)};
+                    var marker = new google.maps.Marker({
+                        position: markerPos,
+                        title: places[i].name,
+                        map: map
+                    });                        
+
+                    google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){ 
+                        return function() {
+                            infowindow.close();
+                            infowindow.setContent(contentString);
+                            infowindow.open(map,marker);                                
+                            refreshChart();
+                        };
+                    })(marker,contentString,infowindow));
+                }
+            });
+        }
+        //Draw Chart
+        var refreshChart = function(){
+            var queue = parseInt($('.d-queue').html());
+            var capacity = parseInt($('.d-capacity').html());
+            var latitude = $('.d-latitude').html();
+            var longitude = $('.d-longitude').html();
+            var chartWidth = $('#my-chart').width();            
+            var gaugeOptions = {
+
+                'chart': {
+                    'type': 'solidgauge'
+                },
+
+                'title': "Title",
+
+                'tooltip': {
+                    'enabled': true
+                },
+                
+                'pane': {
+                'center': ['50%', '50%'],
+                'size': chartWidth*0.7,
+                'startAngle': 0,
+                'endAngle': 360,
+                'background': {
+                    'backgroundColor': '#EEE',
+                    'innerRadius': '80%',
+                    'outerRadius': '100%',
+                    'borderWidth': 0
+                }
+                },
+
+                'yAxis': {
+                'min': 0,
+                'max': 100,
+                'labels': {
+                    'enabled': false
+                },
+            
+                'lineWidth': 0,
+                'minorTickInterval': null,
+                'tickPixelInterval': 400,
+                'tickWidth': 0
+                },
+
+                'plotOptions': {
+                    'solidgauge': {
+                        'innerRadius': '80%'
+                    }
+                },
+                
+                'series': [{
+                    'name': 'Queue',
+                    'data': [Math.round(Number(queue)/Number(capacity) * 100)],
+                    'dataLabels': {
+                        'enabled': false
+                    }
+                }]
+            };
+
+            $('#my-chart').highcharts(gaugeOptions);
+          
+            //var origin1 = myLatLng;
+            var origin1 = new google.maps.LatLng(myLatLng.lat, myLatLng.lng);
+            //var origin1 = new google.maps.LatLng(55.930385, -3.118425)
+            var destinationB = new google.maps.LatLng(Number(latitude), Number(longitude));
+            //var destinationB = new google.maps.LatLng(50.087692, 14.421150);
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+            {
+                origins: [origin1],
+                destinations: [destinationB],
+                travelMode: 'DRIVING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function(response, status){
+                console.log(response);
+                if(response.rows[0].elements[0].status == "ZERO_RESULTS"){
+                    $('.d-arrivalTime').html("No Routes");
+                }
+                else if(response.rows[0].elements[0].status == "OK"){
+                    $('.d-arrivalTime').html(response.rows[0].elements[0].duration.text);
+                }
+            });
+
+            refreshBookButtonEvent();
+        }
+
+        //Refresh BOOK event
+        function refreshBookButtonEvent(){
+            $('#d-infoWindow button').on('click', function(){
+                var placeName = $('.d-placeName').html();
+                var queue = $('.d-queue').html();
+                var arrivalTime = $('.d-arrivalTime').html();
+                var capacity = $('.d-capacity').html();
+                var price = $('.d-price').html();
+                if(Number(queue) >= Number(capacity)) {
+                    alert("This place is full");
+                    return;
+                }
+                $.ajax({
+                    url:'/book',
+                    data:{placeName:placeName},
+                    type:'POST',
+                    success:function(data){
+                        if(data.ret == true){
+                            //Hide Chain Selet
+                            $('.d-dressWrapper').hide();
+                            $('.d-colorWrapper').hide();
+                            $('.d-AnswerWrapper').hide();
+
+                            //Triger Event
+                            $('.d-chainModalTrigger').trigger('click');
+                        }
+                         else if(data.ret == false && data.logIn == false){
+                             $('.d-modalTrigger').trigger('click');
+                        }
+                        else if(data.ret == false){
+                            var resultHtml =  '<p class="d-bookResult">You already booked.Book number is '+data.number+'</p>';
+                            $('.d-book-result-body').html(resultHtml);
+                            $('.d-bookResultModalTrigger').trigger('click');
+                        }
+                    }
+                })
+            })
+        }
+
+        //Submit after selecting chain
+        $('.btn-answer').on('click', function(){
+            var placeName = $('.d-placeName').html();
+            var gender = $('.q-gender').val();
+            var dress = $('.q-dress').val();
+            var color = $('.q-color').val();
+
+            var queue = $('.d-queue').html();
+            var capacity = $('.d-capacity').html();
+            if(Number(queue) >= Number(capacity)) {
+                alert("This place is full");
+                return;
+            }
+            var bookNum = parseInt(queue) + 1;
+
+            $.ajax({
+                url:'/qbook',
+                data:{placeName:placeName, gender:gender, dress:dress, color:color, bookNum:bookNum.toString()},
+                type:'POST',
+                success:function(data){
+                    if(data.ret == true){
+                        $('.close').trigger('click');
+                        var resultHtml =  '<p class="d-bookResult">Successfully Booked. Book number is ' + bookNum + '</p>';
+                        $('.d-book-result-body').html(resultHtml);
+                        $('.d-bookResultModalTrigger').trigger('click');
+                    };
+                }
+            })
+        })
+
+
+        //Log in Button event
+        $('.btn-login').on('click', function(){
+            var email = $('.d-email').val();
+            var password = $('.d-password').val();
+            $.ajax({
+                url:"/user/login",
+                type:"POST",
+                data:{email:email, password:password},
+                success:function(data){
+                    if(data.ret == true){
+                        $('.close').trigger('click');
+                        //Click Book button after Log in
+                        $('#d-infoWindow button').trigger('click');
+                        $('.d-LogInAndOut').html('<a href="/user/logout">Log Out</a>')
+                    }
+                    else if(data.ret == false){
+                        $('.close').trigger('click');
+                        var resultHtml =  '<p class="d-bookResult">Information incorrect</p>';
+                        $('.d-book-result-body').html(resultHtml);
+                        $('.d-bookResultModalTrigger').trigger('click');
+                    }
+                }
+            })
+        })
+            
+        //Login click of the dropdown menu
+        $('.d-LogInAndOut a').on('click', function(){
+            $('.d-modalTrigger').trigger('click');
+        })
+
+        //Sign up from the menu
+        $('.d-signUp').on('click', function(){
+            $('.close').trigger('click');
+            $('.d-signUpModalTrigger').trigger('click');
+        })
+
+        //Sign up button
+        $('.btn-signUp').on('click', function(){
+            var email = $('.d-signUpEmail').val();
+            var password = $('.d-signUpPassword').val();
+            $.ajax({
+                url:'/user/signUp',
+                type:'POST',
+                data:{email:email, password:password},
+                success:function(data){
+                    if(data.ret == true){
+                        $('.close').trigger('click');
+                        var resultHtml =  '<p class="d-bookResult">Successfully created</p>';
+                        $('.d-book-result-body').html(resultHtml);
+                        $('.d-bookResultModalTrigger').trigger('click');
+                        //Change Menu Log in to Log out
+                        $('.d-LogInAndOut').html('<a href="/user/logout">Log Out</a>');
+                    }
+                    else{
+                        $('.close').trigger('click');
+                        var resultHtml =  '<p class="d-bookResult">You cannot use this email</p>';
+                        $('.d-book-result-body').html(resultHtml);
+                        $('.d-bookResultModalTrigger').trigger('click');
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        //Setting from the Menu
+        $('.d-settings').on('click', function(){
+            $('.d-settingModalTrigger').trigger('click');            
+        })
+        $('.btn-Change').on('click', function(){
+            var oldPassword = $('.d-oldPassword').val();
+            var newPassword = $('.d-newPassword').val();
+            $.ajax({
+                url:"/admin/changePassword",
+                data:{oldPassword:oldPassword, newPassword:newPassword},
+                type:'POST',
+                success:function(data){
+                    if(data.ret == true){
+                        alert("Successfully changed");
+                        $('.close').trigger('click');
+                    }
+                    else{
+                        alert("Information incorrect");
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        //Chain Show
+        function showDressWrapper(){            
+            $('.d-dressWrapper').show();
+        }
+        function showColorWrapper(){
+            $('.d-colorWrapper').show();
+        }
+        function showAnswerWrapper(){
+            $('.d-AnswerWrapper').show();
+        }
+    </script>
+
+</body>
+</html>

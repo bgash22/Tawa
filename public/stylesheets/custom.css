@@ -1,0 +1,99 @@
+.navbar-inverse{
+    margin-bottom: 0px;
+    border-radius: 0px;
+    padding:5px;
+}
+.dropdown-menu > li{
+    margin-top: 10px;
+    margin-bottom:10px;
+}
+
+/*Footer*/
+html{
+    box-sizing: border-box;
+    height:100%;
+}
+body{
+    min-height:100%;
+    position:relative;
+    padding-bottom:30px;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+.footer {
+    height: 70px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+    background-color:#222;
+    color:#cccccc;
+    padding-top: 15px;
+}
+
+#placeTable > tbody > tr > td{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.row{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#d-infoWindow p{
+    margin-top:15px;
+    margin-bottom:0px;
+    font-weight:500; 
+    font-size:20px;
+    display: inline-block;
+}
+.d-queue, .d-capacity, .d-placeName, .d-arrivalTime, .d-price{
+    display: inline-block;
+    font-weight:400; 
+    font-size:20px;
+}
+#d-infoWindow button{
+    border:none; 
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.modal {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) { 
+    .modal:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+  }
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .d-bookResult{
+    font-weight:400; 
+    font-size:20px; 
+    display:inline-block;
+  }
+
+  .d-questionWrapper{
+      display: inline-block;
+      margin-right:30px;
+  }

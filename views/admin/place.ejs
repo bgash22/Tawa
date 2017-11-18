@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Data Table -->    
+    <link rel="stylesheet" href="../dataTables/css/dataTables.bootstrap4.min.css">    
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/custom.css">
+
+</head>
+<body>
+    <% include partials/header.ejs%>
+    <div id="wrapper" class="toggled">
+        <% include partials/sidebar.ejs%>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">            
+            <div class="container-fluid">
+                <div>
+                    <a href="" id="menu-toggle">
+                        <span class="glyphicon glyphicon-menu-hamburger d-sidebar-toggler"></span>
+                    </a>
+                </div>
+
+                <div class="d-page-content">
+                    <div class="text-center" style="margin-top:20px; margin-bottom:20px;">
+                        <h2>Place Management</h2>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table id="placeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Place Name</th>
+                                    <th class="text-center">Latitude</th>
+                                    <th class="text-center">Longitude</th>
+                                    <th class="text-center">Capacity</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <% for(var i = 0; i < places.length; i++){ %>
+                                    <tr>
+                                        <td><%= places[i].name %></td>
+                                        <td><%= places[i].latitude %></td>
+                                        <td><%= places[i].longitude %></td>
+                                        <td><%= places[i].capacity %></td>
+                                        <td><%= places[i].price %></td>
+                                        <td><a href="javascript:void(0)" data-name="<%= places[i].name %>" class="btn d-place-delete" style="background: #0275d8;color: white;">Delete</a></td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                            <tfooter>
+                                <tr>
+                                    <td class="text-center"><input type="text" id="d-placeName" style="width:100%; height:30px;"></td>
+                                    <td class="text-center"><input type="text" id="d-placeLatitude" style="width:100%; height:30px;"></td>
+                                    <td class="text-center"><input type="text" id="d-placeLongitude" style="width:100%; height:30px;"></td>
+                                    <td class="text-center"><input type="text" id="d-placeCapacity" style="width:100%; height:30px;"></td>
+                                    <td class="text-center"><input type="text" id="d-placePrice" style="width:100%; height:30px;"></td>
+                                    <td class="text-center"><a href="javascript:void(0)" class="btn d-place-add" style="width:44px;background:red; color:white;">Add</a></td>
+                                </tr>
+                            </tfooter>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg d-settingModalTrigger" data-toggle="modal" data-target="#mySettingModal" style="display:none;">Open Modal</button>
+            <div id="mySettingModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Setting</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>                                    
+                                <div class="form-group">
+                                    <label> Old Password</label>
+                                    <input type="password" class="form-control d-oldPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label> New Password</label>
+                                    <input type="password" class="form-control d-newPassword">
+                                </div>
+                                <div style="text-align:right;">
+                                    <button type="submit" class="btn btn-warning btn-md btn-Change">Change</button>
+                                </div>                            
+                            </div>
+                        </div>                    
+                    </div>        
+                </div>
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include partials/footer.ejs%>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Data Table -->
+    <script src="../dataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../dataTables/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $(document).ready(function(){
+        $('#placeTable').dataTable();
+    })
+    </script>
+
+    <script>
+        
+        $('.d-place-delete').on('click', function(){
+            var name = $(this).data('name');
+            var row = $("#placeTable").DataTable().row($(this).parents('tr'));
+            $.ajax({
+                url:'/admin/deletePlace',
+                data:{name:name},
+                type:'POST',
+                success: function(data){                    
+                    if(data.ret == true)
+                        row.remove().draw();
+                }
+            })
+        });
+
+        $('.d-place-add').on('click', function(){
+            var name = $('#d-placeName').val();
+            var latitude = $('#d-placeLatitude').val();
+            var longitude = $('#d-placeLongitude').val();
+            var capacity = $('#d-placeCapacity').val();
+            var price = $('#d-placePrice').val();
+
+            var t = $('#placeTable').DataTable();
+            var deleteElem = '<a href="javascript:void(0)" data-name="' + name + '" class="btn d-place-delete" style="background: #0275d8;color: white;">Delete</a>';
+
+            $.ajax({
+                url:'/admin/addPlace',
+                data: {name:name, latitude:latitude, longitude:longitude, capacity: capacity, price:price},
+                type: 'POST',
+                success: function(data){
+                    if(data.ret == true){
+                        t.row.add([name, latitude, longitude, capacity, price, deleteElem]).draw(false);
+                        $('#d-placeName').val('');
+                        $('#d-placeLatitude').val('');
+                        $('#d-placeLongitude').val('');
+                        $('#d-placeCapacity').val('');
+                        $('#d-placePrice').val('');
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        $('.d-settings').on('click', function(){
+            $('.d-settingModalTrigger').trigger('click');            
+        })
+        $('.btn-Change').on('click', function(){
+            var oldPassword = $('.d-oldPassword').val();
+            var newPassword = $('.d-newPassword').val();
+            $.ajax({
+                url:"/admin/changePassword",
+                data:{oldPassword:oldPassword, newPassword:newPassword},
+                type:'POST',
+                success:function(data){
+                    if(data.ret == true){
+                        alert("Successfully changed");
+                        $('.close').trigger('click');
+                    }
+                    else{
+                        alert("Information incorrect");
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
